@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="SmokeTestSuite" parallel="false" verbose="2">
+    
+    <!-- Listeners for retry functionality -->
+    <listeners>
+        <listener class-name="com.example.utils.RetryListener"/>
+    </listeners>
+    
+    <!-- Global parameters -->
+    <parameter name="browser" value="chrome"/>
+    <parameter name="timeout" value="10"/>
+    
+    <!-- Smoke Tests - Critical functionality only -->
+    <test name="SmokeTests">
+        <groups>
+            <run>
+                <include name="smoke"/>
+                <include name="critical"/>
+            </run>
+        </groups>
+        
+        <classes>
+            <class name="com.example.tests.AmazonAutomationTest"/>
+            <class name="com.example.tests.BrokenLinksTest"/>
+        </classes>
+    </test>
+    
+</suite>

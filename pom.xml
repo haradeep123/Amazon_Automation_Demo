@@ -91,6 +91,16 @@
                     <systemPropertyVariables>
                         <browser>chrome</browser>
                     </systemPropertyVariables>
+                    <!-- Support for running specific groups -->
+                    <groups>${test.groups}</groups>
+                    <excludedGroups>${exclude.groups}</excludedGroups>
+                    <!-- Properties for test execution -->
+                    <properties>
+                        <property>
+                            <name>usedefaultlisteners</name>
+                            <value>false</value>
+                        </property>
+                    </properties>
                 </configuration>
             </plugin>
             

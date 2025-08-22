@@ -55,7 +55,11 @@ public class AmazonAutomationTest {
         return CSVDataReader.readCSVData(csvFilePath);
     }
     
-    @Test(dataProvider = "amazonSearchData", description = "Amazon product search and navigation test", retryAnalyzer = RetryAnalyzer.class)
+    @Test(dataProvider = "amazonSearchData", 
+          description = "Amazon product search and navigation test", 
+          retryAnalyzer = RetryAnalyzer.class,
+          priority = 2,
+          groups = {"regression", "search", "e2e", "high"})
     public void testAmazonProductSearch(String searchTerm, String resultIndex) throws InterruptedException {
         int index = Integer.parseInt(resultIndex);
         String testName = "Amazon_Search_" + searchTerm.replace(" ", "_");
@@ -87,7 +91,10 @@ public class AmazonAutomationTest {
         }
     }
     
-    @Test(description = "Simple Amazon homepage navigation test", retryAnalyzer = RetryAnalyzer.class)
+    @Test(description = "Simple Amazon homepage navigation test", 
+          retryAnalyzer = RetryAnalyzer.class,
+          priority = 1,
+          groups = {"smoke", "homepage", "sanity", "critical"})
     public void testAmazonHomepage() {
         ExtentReportManager.createTest("Amazon_Homepage_Test", "Test Amazon homepage loading and basic elements");
         ExtentReportManager.addCategory("Smoke Test");

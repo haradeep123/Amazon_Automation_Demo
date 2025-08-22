@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="PriorityBasedTestSuite" parallel="false" verbose="2">
+    
+    <!-- Listeners for retry functionality -->
+    <listeners>
+        <listener class-name="com.example.utils.RetryListener"/>
+    </listeners>
+    
+    <!-- Global parameters -->
+    <parameter name="browser" value="chrome"/>
+    <parameter name="timeout" value="10"/>
+    
+    <!-- Priority 1 Tests - Critical/Blocking -->
+    <test name="Priority1-Critical">
+        <groups>
+            <run>
+                <include name="critical"/>
+            </run>
+        </groups>
+        
+        <classes>
+            <class name="com.example.tests.AmazonAutomationTest">
+                <methods>
+                    <include name="testAmazonHomepage"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    
+    <!-- Priority 2 Tests - High importance -->
+    <test name="Priority2-High">
+        <groups>
+            <run>
+                <include name="high"/>
+            </run>
+        </groups>
+        
+        <classes>
+            <class name="com.example.tests.AmazonAutomationTest">
+                <methods>
+                    <include name="testAmazonProductSearch"/>
+                </methods>
+            </class>
+            <class name="com.example.tests.BrokenLinksTest">
+                <methods>
+                    <include name="testAmazonHomepageLinks"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    
+    <!-- Priority 3 Tests - Medium importance -->
+    <test name="Priority3-Medium">
+        <groups>
+            <run>
+                <include name="medium"/>
+            </run>
+        </groups>
+        
+        <classes>
+            <class name="com.example.tests.BrokenLinksTest">
+                <methods>
+                    <include name="testBrokenLinks"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    
+</suite>

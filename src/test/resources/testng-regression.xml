@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="RegressionTestSuite" parallel="false" verbose="2">
+    
+    <!-- Listeners for retry functionality -->
+    <listeners>
+        <listener class-name="com.example.utils.RetryListener"/>
+    </listeners>
+    
+    <!-- Global parameters -->
+    <parameter name="browser" value="chrome"/>
+    <parameter name="timeout" value="15"/>
+    
+    <!-- Regression Tests - Comprehensive testing -->
+    <test name="RegressionTests">
+        <groups>
+            <run>
+                <include name="regression"/>
+                <include name="high"/>
+                <include name="medium"/>
+            </run>
+        </groups>
+        
+        <classes>
+            <class name="com.example.tests.AmazonAutomationTest"/>
+            <class name="com.example.tests.BrokenLinksTest"/>
+        </classes>
+    </test>
+    
+</suite>

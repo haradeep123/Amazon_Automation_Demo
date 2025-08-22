@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="FunctionalGroupTestSuite" parallel="false" verbose="2">
+    
+    <!-- Listeners for retry functionality -->
+    <listeners>
+        <listener class-name="com.example.utils.RetryListener"/>
+    </listeners>
+    
+    <!-- Global parameters -->
+    <parameter name="browser" value="chrome"/>
+    <parameter name="timeout" value="10"/>
+    
+    <!-- Search Functionality Tests -->
+    <test name="SearchFunctionality">
+        <groups>
+            <run>
+                <include name="search"/>
+            </run>
+        </groups>
+        
+        <classes>
+            <class name="com.example.tests.AmazonAutomationTest"/>
+        </classes>
+    </test>
+    
+    <!-- Homepage Functionality Tests -->
+    <test name="HomepageFunctionality">
+        <groups>
+            <run>
+                <include name="homepage"/>
+            </run>
+        </groups>
+        
+        <classes>
+            <class name="com.example.tests.AmazonAutomationTest"/>
+        </classes>
+    </test>
+    
+    <!-- Link Validation Tests -->
+    <test name="LinkValidation">
+        <groups>
+            <run>
+                <include name="links"/>
+                <include name="validation"/>
+            </run>
+        </groups>
+        
+        <classes>
+            <class name="com.example.tests.BrokenLinksTest"/>
+        </classes>
+    </test>
+    
+    <!-- End-to-End Tests -->
+    <test name="EndToEndTests">
+        <groups>
+            <run>
+                <include name="e2e"/>
+            </run>
+        </groups>
+        
+        <classes>
+            <class name="com.example.tests.AmazonAutomationTest"/>
+        </classes>
+    </test>
+    
+</suite>

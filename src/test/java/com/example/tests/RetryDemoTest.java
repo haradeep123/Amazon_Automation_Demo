@@ -38,7 +38,10 @@ public class RetryDemoTest {
     /**
      * Test that simulates a flaky test - fails first 2 times, passes on 3rd attempt
      */
-    @Test(description = "Demo test that passes after retries", retryAnalyzer = RetryAnalyzer.class)
+    @Test(description = "Demo test that passes after retries", 
+          retryAnalyzer = RetryAnalyzer.class,
+          priority = 4,
+          groups = {"demo", "flaky", "retry", "low"})
     public void testFlakyTestThatEventuallyPasses() {
         ExtentReportManager.createTest("Flaky_Test_Eventually_Passes", 
                                      "Demonstrates retry functionality - passes after 2 failures");
@@ -67,7 +70,10 @@ public class RetryDemoTest {
     /**
      * Test that always passes - no retry needed
      */
-    @Test(description = "Test that always passes", retryAnalyzer = RetryAnalyzer.class)
+    @Test(description = "Test that always passes", 
+          retryAnalyzer = RetryAnalyzer.class,
+          priority = 4,
+          groups = {"demo", "stable", "quick", "low"})
     public void testAlwaysPass() {
         ExtentReportManager.createTest("Always_Pass_Test", "Test that passes on first attempt");
         ExtentReportManager.addCategory("Retry Demo");
@@ -86,7 +92,10 @@ public class RetryDemoTest {
     /**
      * Test that always fails - exhausts all retries
      */
-    @Test(description = "Test that always fails", retryAnalyzer = RetryAnalyzer.class)
+    @Test(description = "Test that always fails", 
+          retryAnalyzer = RetryAnalyzer.class,
+          priority = 5,
+          groups = {"demo", "negative", "failure", "low"})
     public void testAlwaysFail() {
         ExtentReportManager.createTest("Always_Fail_Test", 
                                      "Test that fails even after retries - demonstrates retry exhaustion");

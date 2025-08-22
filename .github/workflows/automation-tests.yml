@@ -26,6 +26,9 @@ on:
           - smoke
           - regression
           - broken-links
+          - priority
+          - functional
+          - sanity
 
 jobs:
   automation-tests:
@@ -185,7 +188,7 @@ jobs:
     - name: Run Smoke Tests
       run: |
         export DISPLAY=:99
-        mvn test -Dtest=AmazonAutomationTest#testAmazonHomepage -Dbrowser=chrome
+        mvn test -Dsurefire.suiteXmlFiles=src/test/resources/testng-smoke.xml -Dbrowser=chrome
         
     - name: Upload Smoke Test Reports
       if: always()
@@ -240,6 +243,141 @@ jobs:
         path: |
           broken_links.txt
           working_links.txt
+          target/surefire-reports/
+          reports/
+
+  priority-tests:
+    runs-on: ubuntu-latest
+    if: github.event.inputs.test_suite == 'priority' || github.event.inputs.test_suite == 'all'
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Set up JDK 11
+      uses: actions/setup-java@v4
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+        
+    - name: Cache Maven dependencies
+      uses: actions/cache@v4
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+        restore-keys: ${{ runner.os }}-m2
+        
+    - name: Install Chrome
+      uses: browser-actions/setup-chrome@v1
+      
+    - name: Start Xvfb
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y xvfb
+        export DISPLAY=:99
+        Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
+        
+    - name: Run Priority-based Tests
+      run: |
+        export DISPLAY=:99
+        mvn test -Dsurefire.suiteXmlFiles=src/test/resources/testng-priority.xml -Dbrowser=chrome
+        
+    - name: Upload Priority Test Reports
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: priority-test-reports
+        path: |
+          target/surefire-reports/
+          reports/
+
+  functional-tests:
+    runs-on: ubuntu-latest
+    if: github.event.inputs.test_suite == 'functional' || github.event.inputs.test_suite == 'all'
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Set up JDK 11
+      uses: actions/setup-java@v4
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+        
+    - name: Cache Maven dependencies
+      uses: actions/cache@v4
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+        restore-keys: ${{ runner.os }}-m2
+        
+    - name: Install Chrome
+      uses: browser-actions/setup-chrome@v1
+      
+    - name: Start Xvfb
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y xvfb
+        export DISPLAY=:99
+        Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
+        
+    - name: Run Functional Group Tests
+      run: |
+        export DISPLAY=:99
+        mvn test -Dsurefire.suiteXmlFiles=src/test/resources/testng-functional.xml -Dbrowser=chrome
+        
+    - name: Upload Functional Test Reports
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: functional-test-reports
+        path: |
+          target/surefire-reports/
+          reports/
+
+  sanity-tests:
+    runs-on: ubuntu-latest
+    if: github.event.inputs.test_suite == 'sanity' || github.event.inputs.test_suite == 'all'
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Set up JDK 11
+      uses: actions/setup-java@v4
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+        
+    - name: Cache Maven dependencies
+      uses: actions/cache@v4
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+        restore-keys: ${{ runner.os }}-m2
+        
+    - name: Install Chrome
+      uses: browser-actions/setup-chrome@v1
+      
+    - name: Start Xvfb
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y xvfb
+        export DISPLAY=:99
+        Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
+        
+    - name: Run Sanity Tests
+      run: |
+        export DISPLAY=:99
+        mvn test -Dsurefire.suiteXmlFiles=src/test/resources/testng-sanity.xml -Dbrowser=chrome
+        
+    - name: Upload Sanity Test Reports
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: sanity-test-reports
+        path: |
           target/surefire-reports/
           reports/
 

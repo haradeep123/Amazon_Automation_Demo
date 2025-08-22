@@ -50,7 +50,11 @@ public class BrokenLinksTest {
         };
     }
     
-    @Test(dataProvider = "testUrls", description = "Check for broken links on web pages", retryAnalyzer = RetryAnalyzer.class)
+    @Test(dataProvider = "testUrls", 
+          description = "Check for broken links on web pages", 
+          retryAnalyzer = RetryAnalyzer.class,
+          priority = 3,
+          groups = {"regression", "links", "validation", "medium"})
     public void testBrokenLinks(String url) {
         String testName = "Broken_Links_Test_" + url.replace("https://", "").replace(".", "_");
         ExtentReportManager.createTest(testName, "Check for broken links on: " + url);
@@ -89,7 +93,10 @@ public class BrokenLinksTest {
         }
     }
     
-    @Test(description = "Simple link validation test on Amazon homepage", retryAnalyzer = RetryAnalyzer.class)
+    @Test(description = "Simple link validation test on Amazon homepage", 
+          retryAnalyzer = RetryAnalyzer.class,
+          priority = 2,
+          groups = {"smoke", "links", "sanity", "high"})
     public void testAmazonHomepageLinks() {
         ExtentReportManager.createTest("Amazon_Homepage_Links", "Validate links on Amazon homepage");
         ExtentReportManager.addCategory("Smoke Test");
