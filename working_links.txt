@@ -1,0 +1,6 @@
+Working Links Report
+====================
+Total working links found: 0
+
+Note: This file will be populated when TestBrokenLinks.java is executed.
+The script will automatically detect and list all working links found on the tested webpage.

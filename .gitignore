@@ -1,0 +1,62 @@
+# Compiled class files
+*.class
+
+# Log files
+*.log
+
+# Maven target directory
+target/
+
+# IDE files
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+.classpath
+.project
+.settings/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Test outputs
+test-output/
+*.tmp
+*.temp
+
+# Reports (keep structure but ignore generated content)
+reports/*.html
+reports/screenshots/*.png
+!reports/.gitkeep
+!reports/screenshots/.gitkeep
+
+# Dependency directories
+.m2/
+.gradle/
+
+# Environment variables
+.env
+.env.local
+
+# Browser driver files
+chromedriver*
+geckodriver*
+msedgedriver*
+
+# Temporary files
+*.swp
+*.swo
+*~
+
+# Coverage reports
+coverage/
+*.lcov
+
+# Node modules (if any frontend tools are used)
+node_modules/
+
+# Backup files
+*.bak
+*.backup
