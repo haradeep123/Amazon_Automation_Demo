@@ -3,6 +3,7 @@ package com.example.tests;
 import org.testng.annotations.*;
 import com.example.pages.BasePage;
 import com.example.utils.ExtentReportManager;
+import com.example.utils.RetryAnalyzer;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import java.net.HttpURLConnection;
@@ -49,7 +50,7 @@ public class BrokenLinksTest {
         };
     }
     
-    @Test(dataProvider = "testUrls", description = "Check for broken links on web pages")
+    @Test(dataProvider = "testUrls", description = "Check for broken links on web pages", retryAnalyzer = RetryAnalyzer.class)
     public void testBrokenLinks(String url) {
         String testName = "Broken_Links_Test_" + url.replace("https://", "").replace(".", "_");
         ExtentReportManager.createTest(testName, "Check for broken links on: " + url);
@@ -88,7 +89,7 @@ public class BrokenLinksTest {
         }
     }
     
-    @Test(description = "Simple link validation test on Amazon homepage")
+    @Test(description = "Simple link validation test on Amazon homepage", retryAnalyzer = RetryAnalyzer.class)
     public void testAmazonHomepageLinks() {
         ExtentReportManager.createTest("Amazon_Homepage_Links", "Validate links on Amazon homepage");
         ExtentReportManager.addCategory("Smoke Test");

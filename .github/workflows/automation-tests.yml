@@ -74,12 +74,13 @@ jobs:
     - name: Clean and compile
       run: mvn clean compile
       
-    - name: Run tests
+    - name: Run tests with retry support
       run: |
         export DISPLAY=:99
-        mvn test -Dbrowser=${{ matrix.browser }} -Djava.awt.headless=true
+        mvn test -Dbrowser=${{ matrix.browser }} -Djava.awt.headless=true -Dsurefire.suiteXmlFiles=src/test/resources/testng-with-retry.xml
       env:
         BROWSER: ${{ matrix.browser }}
+        RETRY_ENABLED: true
         
     - name: Generate Surefire Report
       if: always()
@@ -133,7 +134,8 @@ jobs:
               testSummary += `📊 **Test Summary:**\n`;
               testSummary += `- Report files found: ${xmlFiles.length}\n`;
               testSummary += `- Browser: ${{ matrix.browser }}\n`;
-              testSummary += `- Java Version: ${{ matrix.java-version }}\n\n`;
+              testSummary += `- Java Version: ${{ matrix.java-version }}\n`;
+              testSummary += `- Retry Support: ✅ Enabled (max 2 retries per test)\n\n`;
             }
           } catch (error) {
             testSummary += `Error reading test results: ${error.message}\n`;

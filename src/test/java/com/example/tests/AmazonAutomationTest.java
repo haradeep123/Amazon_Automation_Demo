@@ -7,6 +7,7 @@ import com.example.pages.AmazonSearchResultsPage;
 import com.example.pages.AmazonProductPage;
 import com.example.utils.ExtentReportManager;
 import com.example.utils.CSVDataReader;
+import com.example.utils.RetryAnalyzer;
 
 public class AmazonAutomationTest {
     // Page Object instances
@@ -54,7 +55,7 @@ public class AmazonAutomationTest {
         return CSVDataReader.readCSVData(csvFilePath);
     }
     
-    @Test(dataProvider = "amazonSearchData", description = "Amazon product search and navigation test")
+    @Test(dataProvider = "amazonSearchData", description = "Amazon product search and navigation test", retryAnalyzer = RetryAnalyzer.class)
     public void testAmazonProductSearch(String searchTerm, String resultIndex) throws InterruptedException {
         int index = Integer.parseInt(resultIndex);
         String testName = "Amazon_Search_" + searchTerm.replace(" ", "_");
@@ -86,7 +87,7 @@ public class AmazonAutomationTest {
         }
     }
     
-    @Test(description = "Simple Amazon homepage navigation test")
+    @Test(description = "Simple Amazon homepage navigation test", retryAnalyzer = RetryAnalyzer.class)
     public void testAmazonHomepage() {
         ExtentReportManager.createTest("Amazon_Homepage_Test", "Test Amazon homepage loading and basic elements");
         ExtentReportManager.addCategory("Smoke Test");
